@@ -16,7 +16,7 @@ const app =express();
 const __dirname = path.resolve();
 
 app.use(cors({
-    origin: process.env.NODE_ENV === 'production' ? "/api":  process.env.FRONTEND_URL,
+    origin: process.env.NODE_ENV === 'production' ?  process.env.FRONTEND_URL: "/api" ,
     credentials: true
 }));
 
