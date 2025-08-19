@@ -69,16 +69,31 @@ export const signup = async (req, res) => {
         if (Existinguser) {
             return res.status(400).json({ meassage: "user is alreasy  exist" })
         }
-
+        
         const user = await User.create({ name, email, password });
+       
+        const { accessToken, refreshToken } = await generateAccessAndRefreshToken(user._id)
+        const RegisterUser = await User.findById(user._id).select("-password -refreshToken")
 
-        const createdUser = await User.findById(user._id).select("-password");//-refreshToken
-
-        if (!createdUser) {
+         if (!RegisterUser) {
             res.status(500).json({ meassage: "something went wrong while registering the user!" });
         }
 
-        return res.json({ createdUser, message: "User Ragistrated successfully" })
+
+        const options = {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production"
+        }
+        return res.status(200)
+            .cookie("accessToken", accessToken, options)
+            .cookie("refreshToken", refreshToken, options)
+
+            .json({
+                user: RegisterUser,
+                accessToken,
+                refreshToken,
+                message: "User Ragistrated successfully"
+            })
 
     } catch (error) {
         res.status(500).json({ message: "Internal server error" })
