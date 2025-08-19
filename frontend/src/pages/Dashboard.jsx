@@ -15,8 +15,6 @@ export const Dashboard = () => {
 
  const { user } = useSelector(state => state.auth);
  
- console.log(user);
-
  const displayName = user.name ? user.name.charAt(0).toUpperCase() + user.name.slice(1) : 'User';
 
 
