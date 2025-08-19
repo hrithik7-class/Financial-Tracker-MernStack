@@ -11,4 +11,4 @@ const instance = axios.create({
     withCredentials: true,
 })
 export default instance;
-// VITE_API_URL=http://localhost:5000 .env.developer  //  VITE_API_URL=https://financial-tracker-mernstack.onrender.com  production
+
