@@ -27,6 +27,7 @@ const authSlice = createSlice({
     loading: false,
     error: null,
     isAuthenticated: false,
+    isInitialized: false, // Add this field
   },
   reducers: {
     clearError(state) {
@@ -43,10 +44,12 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload;
         state.isAuthenticated = true;
+        state.isInitialized = true; // Add this
       })
       .addCase(signupUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
+        state.isInitialized = true; // Add this
       })
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
@@ -56,14 +59,17 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload;
         state.isAuthenticated = true;
+        state.isInitialized = true; // Add this
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
+        state.isInitialized = true; // Add this
       })
       .addCase(logoutUser.fulfilled, (state) => {
         state.user = null;
         state.isAuthenticated = false;
+        state.isInitialized = true; // Add this
       })
       .addCase(fetchProfile.pending, (state) => {
         state.loading = true;
@@ -72,11 +78,13 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload;
         state.isAuthenticated = true;
+        state.isInitialized = true; // Add this
       })
       .addCase(fetchProfile.rejected, (state) => {
         state.loading = false;
         state.user = null;
         state.isAuthenticated = false;
+        state.isInitialized = true; // Add this
       });
   },
 });
