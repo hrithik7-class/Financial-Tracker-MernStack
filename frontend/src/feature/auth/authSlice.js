@@ -17,7 +17,7 @@ export const logoutUser = createAsyncThunk('auth/logoutUser', async () => {
 
 export const fetchProfile = createAsyncThunk('auth/fetchProfile', async () => {
   const response = await authAPI.getProfile();
-  return response.data;
+  return response.data.user; 
 });
 
 const authSlice = createSlice({

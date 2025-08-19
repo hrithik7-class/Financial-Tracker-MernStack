@@ -16,7 +16,7 @@ import { fetchTransactions } from './feature/finance/finance.Slice';
 function App() {
 
   const { user,loading ,isAuthenticated } = useSelector(state => state.auth);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch() 
    
     useEffect(() => {
     dispatch(fetchProfile()).then(() => {
@@ -39,7 +39,7 @@ function App() {
           <Routes>
             <Route path="/" element={user ? <Dashboard /> : <Navigate to="/login" />} />
             <Route path="/login" element={ !user ? <LoginPage /> : <Navigate to="/" />} />
-            <Route path="/signup" element={!user ? <SignUpPage /> : <Navigate to="/" />} />
+            <Route path="/signup" element={!user ? <SignUpPage /> : <Navigate to="/login" />} />
             <Route path="*" element={<NotFound/>} />
           </Routes>
         </div>
